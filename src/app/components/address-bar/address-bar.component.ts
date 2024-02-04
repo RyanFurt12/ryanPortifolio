@@ -13,10 +13,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './address-bar.component.css'
 })
 export class AddressBarComponent {
-  Url:string = window.location.href.slice(7);
+  Url:string = window.location.href;
   LinkIsCopied:boolean = false;
 
   constructor(){
+    if(this.Url.startsWith('https://')){
+      this.Url = this.Url.slice(8)
+    }
     if(this.Url.endsWith('/')){
       this.Url = this.Url.slice(0,-1)
     }
@@ -30,9 +33,6 @@ export class AddressBarComponent {
     if (event.key === 'Enter') {
       let url = this.Url.startsWith('https://')?
               this.Url : 'https://' + this.Url;
-
-      console.log();
-      
 
       window.open(url,'_blank');
     }
